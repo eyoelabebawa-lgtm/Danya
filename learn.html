@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="enen" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grandmaster Daniel Naroditsky (Danya) | Tribute & Masterclass Hub</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        chess: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            border: '#334155',
+                            gold: '#f59e0b',
+                            goldHover: '#d97706',
+                            text: '#f8fafc',
+                            muted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glow-gold {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+        .view-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .view-section.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-chess-dark text-chess-text min-h-screen flex flex-col custom-scrollbar">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-chess-dark/90 backdrop-blur-md border-b border-chess-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <button onclick="switchView('home')" class="flex items-center space-x-3 group text-left focus:outline-none">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-chess-knight"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-tight text-white block">GM Daniel Naroditsky</span>
+                    <span class="text-xs text-chess-gold font-medium block">Tribute & Masterclass Hub</span>
+                </div>
+            </button>
+            
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                <button onclick="switchView('home')" id="nav-home" class="nav-link text-chess-gold transition-colors font-semibold py-2">Home</button>
+                <button onclick="switchView('biography')" id="nav-biography" class="nav-link text-chess-muted hover:text-chess-gold transition-colors py-2">Biography</button>
+                <button onclick="switchView('masterclasses')" id="nav-masterclasses" class="nav-link text-chess-muted hover:text-chess-gold transition-colors py-2">Masterclasses</button>
+                <button onclick="switchView('principles')" id="nav-principles" class="nav-link text-chess-muted hover:text-chess-gold transition-colors py-2">Endgame Wisdom</button>
+                <button onclick="switchView('legacy')" id="nav-legacy" class="nav-link text-chess-muted hover:text-chess-gold transition-colors py-2">Legacy</button>
+                <button onclick="switchView('archives')" id="nav-archives" class="nav-link text-chess-muted hover:text-chess-gold transition-colors py-2">Watch Archives</button>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="switchView('archives')" class="px-4 py-2 bg-chess-gold hover:bg-chess-goldHover text-slate-950 font-semibold rounded-xl text-sm transition-all shadow-md hover:shadow-amber-500/20">
+                    <i class="fa-solid fa-play mr-1.5"></i> Watch Archives
+                </button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-chess-muted hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-chess-card border-b border-chess-border px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchView('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-chess-text hover:bg-chess-border/50">Home</button>
+            <button onclick="switchView('biography'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-chess-text hover:bg-chess-border/50">Biography</button>
+            <button onclick="switchView('masterclasses'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-chess-text hover:bg-chess-border/50">Masterclasses</button>
+            <button onclick="switchView('principles'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-chess-text hover:bg-chess-border/50">Endgame Wisdom</button>
+            <button onclick="switchView('legacy'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-chess-text hover:bg-chess-border/50">Legacy</button>
+            <button onclick="switchView('archives'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-chess-text hover:bg-chess-border/50">Watch Archives</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- VIEW 1: HOME -->
+        <section id="view-home" class="view-section active py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="relative overflow-hidden flex flex-col lg:flex-row items-center gap-12">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.08),transparent_50%)] pointer-events-none"></div>
+                
+                <div class="flex-1 text-center lg:text-left z-10">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-chess-gold/10 border border-chess-gold/20 text-chess-gold text-xs font-semibold uppercase tracking-wider mb-6">
+                        <i class="fa-solid fa-award"></i>
+                        <span>Grandmaster & Educator Extraordinaire</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+                        Honoring the Legacy of <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">Daniel Naroditsky</span>
+                    </h1>
+                    <p class="text-lg text-chess-muted max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+                        Celebrating a brilliant grandmaster, prolific author, and world-class educator whose patience, clarity, and passion have inspired millions of chess players across the globe.
+                    </p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <button onclick="switchView('masterclasses')" class="px-6 py-3 bg-chess-gold hover:bg-chess-goldHover text-slate-950 font-bold rounded-xl shadow-lg hover:shadow-amber-500/25 transition-all flex items-center space-x-2">
+                            <span>Explore Masterclasses</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button onclick="switchView('biography')" class="px-6 py-3 bg-chess-card hover:bg-slate-800 text-white border border-chess-border font-semibold rounded-xl transition-all">
+                            Read Biography
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-1 w-full max-w-md lg:max-w-none z-10">
+                    <div class="bg-chess-card border border-chess-border p-6 rounded-3xl glow-gold relative">
+                        <div class="absolute -top-3 -right-3 bg-chess-gold text-slate-950 text-xs font-bold px-3 py-1 rounded-full shadow">
+                            GM & Author
+                        </div>
+                        <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-chess-border flex flex-col items-center justify-center p-6 text-center relative overflow-hidden group">
+                            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                            <div class="w-24 h-24 rounded-2xl bg-chess-gold/10 border border-chess-gold/30 flex items-center justify-center text-chess-gold text-4xl mb-4 group-hover:scale-110 transition-transform shadow-inner">
+                                <i class="fa-solid fa-chess-king"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Grandmaster Daniel Naroditsky</h3>
+                            <p class="text-xs text-chess-gold mt-1">"Danya"</p>
+                            <p class="text-sm text-chess-muted mt-3">Renowned commentator, speed chess legend, and master endgame instructor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlights Grid -->
+            <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-chess-card border border-chess-border p-6 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-chess-gold/10 text-chess-gold flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Masterclass Library</h3>
+                    <p class="text-sm text-chess-muted mb-4">Access curated educational breakdown sessions and endgame lectures.</p>
+                    <button onclick="switchView('masterclasses')" class="text-chess-gold text-sm font-semibold hover:underline flex items-center space-x-1">
+                        <span>Browse classes</span> <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+                <div class="bg-chess-card border border-chess-border p-6 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-chess-gold/10 text-chess-gold flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Endgame Wisdom</h3>
+                    <p class="text-sm text-chess-muted mb-4">Master foundational concepts like king activity, opposition, and prophylaxis.</p>
+                    <button onclick="switchView('principles')" class="text-chess-gold text-sm font-semibold hover:underline flex items-center space-x-1">
+                        <span>Learn principles</span> <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+                <div class="bg-chess-card border border-chess-border p-6 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-chess-gold/10 text-chess-gold flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Video Archive</h3>
+                    <p class="text-sm text-chess-muted mb-4">Quickly search and filter through all featured masterclass recordings.</p>
+                    <button onclick="switchView('archives')" class="text-chess-gold text-sm font-semibold hover:underline flex items-center space-x-1">
+                        <span>Search archives</span> <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: BIOGRAPHY -->
+        <section id="view-biography" class="view-section py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-3">Life & Chess Journey</h2>
+                <p class="text-chess-muted max-w-xl mx-auto">From prodigious youth player to preeminent chess educator and grandmaster.</p>
+            </div>
+
+            <div class="space-y-8 relative before:absolute before:inset-0 before:left-1/2 before:-translate-x-1/2 before:w-0.5 before:bg-chess-border">
+                <!-- Timeline Item 1 -->
+                <div class="relative flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+                        <span class="text-xs font-bold text-chess-gold px-3 py-1 bg-chess-gold/10 rounded-full border border-chess-gold/20">2007</span>
+                        <h3 class="text-lg font-bold text-white mt-2">World Under-12 Champion</h3>
+                        <p class="text-sm text-chess-muted mt-1">Demonstrated early elite tactical mastery by winning the World Youth Chess Championship in Kemer, Turkey.</p>
+                    </div>
+                    <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-chess-gold border-4 border-chess-dark"></div>
+                    <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
+                    <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-chess-gold border-4 border-chess-dark"></div>
+                    <div class="md:w-1/2 md:pl-12 mb-4 md:mb-0">
+                        <span class="text-xs font-bold text-chess-gold px-3 py-1 bg-chess-gold/10 rounded-full border border-chess-gold/20">2013</span>
+                        <h3 class="text-lg font-bold text-white mt-2">Author & Grandmaster Title</h3>
+                        <p class="text-sm text-chess-muted mt-1">Published his acclaimed book "Mastering Positional Chess" at age 18 and officially achieved the Grandmaster title in 2013.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+                        <span class="text-xs font-bold text-chess-gold px-3 py-1 bg-chess-gold/10 rounded-full border border-chess-gold/20">Present Era</span>
+                        <h3 class="text-lg font-bold text-white mt-2">Premier Educator & Commentator</h3>
+                        <p class="text-sm text-chess-muted mt-1">Became a beloved broadcaster, prolific speed chess champion, and masterclass teacher famous for breaking down complex concepts effortlessly.</p>
+                    </div>
+                    <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-chess-gold border-4 border-chess-dark"></div>
+                    <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: MASTERCLASSES -->
+        <section id="view-masterclasses" class="view-section py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-chess-gold/10 border border-chess-gold/20 text-chess-gold text-xs font-semibold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Educational Archive</span>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-2">Masterclass & Lesson Library</h2>
+                <p class="text-chess-muted max-w-xl mx-auto">Explore Danya's incredible educational masterclasses and deep-dive analysis videos below.</p>
+            </div>
+
+            <!-- Primary Featured Masterclass -->
+            <div class="bg-chess-card border border-chess-border rounded-3xl p-6 sm:p-8 glow-gold mb-12">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b border-chess-border gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white flex items-center space-x-3">
+                            <i class="fa-solid fa-video text-chess-gold"></i>
+                            <span>Principles of Chess Endgames | King Activity</span>
+                        </h3>
+                        <p class="text-sm text-chess-muted mt-1">An essential foundational masterclass breaking down the core principles of endgame technique.</p>
+                    </div>
+                    <span class="self-start sm:self-auto px-3 py-1 bg-red-500/10 text-red-400 border border-red-500/20 text-xs font-semibold rounded-full flex items-center space-x-1.5">
+                        <i class="fa-brands fa-youtube"></i>
+                        <span>Featured Masterclass</span>
+                    </span>
+                </div>
+                <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-inner border border-chess-border">
+                    <iframe 
+                        class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.youtube-nocookie.com/embed/mhUoe2JBxco" 
+                        title="Principles of Chess Endgames | King Activity" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Complete Masterclass Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/QUqq7wSLE78" title="Masterclass Session 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 1</h4>
+                </div>
+
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/W0Lw4ox_n_M" title="Masterclass Session 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 2</h4>
+                </div>
+
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/Gu1jnDjEXT8" title="Masterclass Session 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 3</h4>
+                </div>
+
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/iyl_vVXeFuI" title="Masterclass Session 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 4</h4>
+                </div>
+
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/mEZHigJCtls" title="Masterclass Session 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 5</h4>
+                </div>
+
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/oRK7XLhGz_c" title="Masterclass Session 6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 6</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: ENDGAME WISDOM -->
+        <section id="view-principles" class="view-section py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-3">Key Endgame Principles from Danya</h2>
+                <p class="text-chess-muted max-w-xl mx-auto">Core wisdom distilled from his masterclasses to elevate your endgame precision and board vision.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <!-- Principle 1 -->
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-6 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-chess-gold/10 text-chess-gold flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-chess-king"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">1. The King is an Active Piece</h3>
+                        <p class="text-sm text-chess-muted leading-relaxed">
+                            In the endgame, safety concerns shift. The king is no longer a passive liability hiding behind pawns; it is a powerful attacking piece that must step forward into the center.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-chess-border/60 text-xs text-chess-gold font-medium flex items-center space-x-1">
+                        <i class="fa-solid fa-quote-left mr-1"></i>
+                        <span>"Activate your monarch early."</span>
+                    </div>
+                </div>
+
+                <!-- Principle 2 -->
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-6 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-chess-gold/10 text-chess-gold flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-chess-pawn"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">2. Opposition & Key Squares</h3>
+                        <p class="text-sm text-chess-muted leading-relaxed">
+                            Mastering opposition allows you to outflank the opposing king, break through defensive barriers, and shepherd your passed pawns safely to promotion.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-chess-border/60 text-xs text-chess-gold font-medium flex items-center space-x-1">
+                        <i class="fa-solid fa-quote-left mr-1"></i>
+                        <span>"Control the critical geometry."</span>
+                    </div>
+                </div>
+
+                <!-- Principle 3 -->
+                <div class="bg-chess-card border border-chess-border rounded-2xl p-6 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-chess-gold/10 text-chess-gold flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">3. Prophylaxis & Patience</h3>
+                        <p class="text-sm text-chess-muted leading-relaxed">
+                            Endgames demand calm calculation and anticipating opponent counterplay. Rushing creates weaknesses; methodical progression guarantees conversion.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-chess-border/60 text-xs text-chess-gold font-medium flex items-center space-x-1">
+                        <i class="fa-solid fa-quote-left mr-1"></i>
+                        <span>"Precision over speed."</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Quiz Section -->
+            <div class="bg-chess-card border border-chess-border rounded-3xl p-8 max-w-3xl mx-auto glow-gold">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-chess-gold/10 text-chess-gold flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Test Your Danya-Style Endgame Knowledge</h3>
+                        <p class="text-xs text-chess-muted">Quick interactive check based on masterclass teachings.</p>
+                    </div>
+                </div>
+
+                <div id="quiz-container">
+                    <p class="text-sm text-white font-medium mb-4" id="quiz-question">Question 1: In a king and pawn endgame, what is the primary role of your King?</p>
+                    <div class="space-y-3" id="quiz-options">
+                        <button onclick="checkQuiz(0)" class="w-full text-left p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sm text-chess-muted hover:text-white border border-chess-border transition-all">A) Hide in the corner behind your pawns for maximum safety.</button>
+                        <button onclick="checkQuiz(1)" class="w-full text-left p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sm text-chess-muted hover:text-white border border-chess-border transition-all">B) March actively into the center to support pawns and control key squares.</button>
+                        <button onclick="checkQuiz(2)" class="w-full text-left p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sm text-chess-muted hover:text-white border border-chess-border transition-all">C) Exchange it for an opposing minor piece immediately.</button>
+                    </div>
+                    <div id="quiz-feedback" class="mt-4 text-sm font-semibold hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: LEGACY -->
+        <section id="view-legacy" class="view-section py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
+            <div class="bg-gradient-to-br from-chess-card to-slate-900 border border-chess-border rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 text-chess-gold/5 text-9xl pointer-events-none">
+                    <i class="fa-solid fa-chess-knight"></i>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">An Inspiring Educational Legacy</h2>
+                <p class="text-chess-muted leading-relaxed max-w-2xl mx-auto mb-8">
+                    Grandmaster Daniel Naroditsky has forever changed how chess is taught online. Through unwavering patience, clear explanations, and profound respect for his audience, he continues to inspire players of all levels to love and understand the royal game.
+                </p>
+                <div class="inline-flex items-center space-x-2 text-chess-gold font-medium text-sm">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Thank you, Danya, for everything you bring to the chess community.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 6: WATCH ARCHIVES (Searchable/Filterable Library) -->
+        <section id="view-archives" class="view-section py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">Complete Masterclass Video Archive</h2>
+                <p class="text-chess-muted max-w-xl mx-auto">Search and explore all 11 Masterclass sessions instantly.</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="max-w-xl mx-auto mb-10 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-chess-muted"></i>
+                <input type="text" id="archive-search" oninput="filterArchives()" placeholder="Search masterclass sessions..." class="w-full bg-chess-card border border-chess-border rounded-2xl pl-12 pr-4 py-3.5 text-sm text-white placeholder-chess-muted focus:outline-none focus:border-chess-gold transition-colors">
+            </div>
+
+            <!-- Full Video Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="archive-grid">
+                <!-- Video Item 1 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 1 Principles of Chess Endgames King Activity">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/mhUoe2JBxco" title="Masterclass Session 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 1: King Activity</h4>
+                </div>
+
+                <!-- Video Item 2 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 2">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/QUqq7wSLE78" title="Masterclass Session 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 2</h4>
+                </div>
+
+                <!-- Video Item 3 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 3">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/W0Lw4ox_n_M" title="Masterclass Session 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 3</h4>
+                </div>
+
+                <!-- Video Item 4 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 4">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/Gu1jnDjEXT8" title="Masterclass Session 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 4</h4>
+                </div>
+
+                <!-- Video Item 5 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 5">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/iyl_vVXeFuI" title="Masterclass Session 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 5</h4>
+                </div>
+
+                <!-- Video Item 6 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 6">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/mEZHigJCtls" title="Masterclass Session 6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 6</h4>
+                </div>
+
+                <!-- Video Item 7 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 7">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/oRK7XLhGz_c" title="Masterclass Session 7" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 7</h4>
+                </div>
+
+                <!-- Video Item 8 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 8">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/n3FufrVltsc" title="Masterclass Session 8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 8</h4>
+                </div>
+
+                <!-- Video Item 9 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 9">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/Fxjthnv7mBQ" title="Masterclass Session 9" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 9</h4>
+                </div>
+
+                <!-- Video Item 10 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 10">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/VWeZ8m34BSk" title="Masterclass Session 10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 10</h4>
+                </div>
+
+                <!-- Video Item 11 -->
+                <div class="archive-item bg-chess-card border border-chess-border rounded-2xl p-4 flex flex-col justify-between hover:border-chess-gold/40 transition-all shadow-lg" data-title="Masterclass Session 11">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black mb-4 border border-chess-border/60">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/qTKk-cGcTZ4" title="Masterclass Session 11" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-sm font-semibold text-white">Masterclass Session 11</h4>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-chess-border bg-chess-dark py-8 text-center text-sm text-chess-muted">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>Dedicated respectfully to Grandmaster Daniel Naroditsky (Danya).</p>
+            <p class="flex items-center space-x-1">
+                <span>Created with admiration for his chess education legacy</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        function switchView(viewId) {
+            // Hide all views
+            const views = document.querySelectorAll('.view-section');
+            views.forEach(v => v.classList.remove('active'));
+
+            // Show target view
+            const target = document.getElementById('view-' + viewId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update desktop nav link styles
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('text-chess-gold', 'font-semibold');
+                link.classList.add('text-chess-muted');
+            });
+
+            const activeNav = document.getElementById('nav-' + viewId);
+            if (activeNav) {
+                activeNav.classList.remove('text-chess-muted');
+                activeNav.classList.add('text-chess-gold', 'font-semibold');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function checkQuiz(selectedIndex) {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden');
+            if (selectedIndex === 1) {
+                feedback.className = "mt-4 text-sm font-semibold text-emerald-400";
+                feedback.textContent = "Correct! As Danya emphasizes in his masterclasses, the king transforms into an active piece in the endgame, marching to the center to support your pawns and seize opposition.";
+            } else {
+                feedback.className = "mt-4 text-sm font-semibold text-amber-400";
+                feedback.textContent = "Not quite! Remember Danya's core rule: the king is no longer a liability in the endgame; it must step forward actively into the center.";
+            }
+        }
+
+        function filterArchives() {
+            const query = document.getElementById('archive-search').value.toLowerCase();
+            const items = document.querySelectorAll('.archive-item');
+            items.forEach(item => {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
